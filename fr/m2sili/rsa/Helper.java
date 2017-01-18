@@ -69,7 +69,7 @@ public class Helper {
 
     /**
      * Génère une clé privée
-     * @param pk la clé publique pour génerer la clé privée
+     * @param pbk la clé publique pour génerer la clé privée
      * @return clé privée
      */
 	public PrivateKey generatePrivateKey(PublicKey pbk){
@@ -99,6 +99,12 @@ public class Helper {
         return pvk;
     }
 
+    /**
+     * Chiffre le message passé en paramètre grâce à la clé publique également fournie en paramètre
+     * @param message le message à chiffrer
+     * @param key la clé publique pour chiffrer le message
+     * @return une chaîne de caractères correspondant au message chiffré, chaque nombre séparé par un espace.
+     */
     public String encryption(String message, PublicKey key) {
         String result = "";
         for(int i = 0; i < message.length(); i++) {
