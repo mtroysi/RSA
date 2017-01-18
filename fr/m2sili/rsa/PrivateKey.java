@@ -6,7 +6,7 @@ import java.math.BigInteger;
  * Created by Morgane TROYSI on 17/01/17.
  */
 
-public class Key {
+public class PrivateKey {
     /**
      * premier membre de la clé : n = p * q
      */
