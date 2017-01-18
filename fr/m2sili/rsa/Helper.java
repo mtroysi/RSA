@@ -10,10 +10,22 @@ import java.util.Random;
 public class Helper {
     /**
      * Génère aléatoirement un grand entier premier
-     * @return p (ou q) un grand entier premier
+     * @return un grand entier premier
      */
     public BigInteger generatePrime() {
         return BigInteger.probablePrime(500, new Random());
+    }
+
+    /**
+     * Génère aléatoirement un grand entier premier qui doit être différent de celui passé en paramètre
+     * @return un grand entier premier différent de celui passé en paramètre
+     */
+    public BigInteger generatePrime(BigInteger p) {
+        BigInteger q = BigInteger.probablePrime(500, new Random());
+        while (q.equals(p)) {
+            q = BigInteger.probablePrime(500, new Random());
+        }
+        return q;
     }
 
     /**
@@ -47,7 +59,21 @@ public class Helper {
      * @return clé publique
      */
     public PublicKey generatePublicKey() {
-        return null;
+        PublicKey publicKey = new PublicKey();
+        // Génération de q et p
+        publicKey.setP(this.generatePrime());
+        publicKey.setQ(this.generatePrime(publicKey.getP()));
+
+        // Calcul de n et m
+        publicKey.setN(publicKey.getP().multiply(publicKey.getQ()));
+        BigInteger first = publicKey.getP().subtract(BigInteger.ONE);
+        BigInteger second = publicKey.getQ().subtract(BigInteger.ONE);
+        publicKey.setM(first.multiply(second));
+
+        // Calcul de e l'exposant public
+        publicKey.setE(this.generatePrimeWith(publicKey.getM()));
+
+        return publicKey;
     }
 
     /**

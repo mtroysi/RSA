@@ -8,7 +8,7 @@ import java.util.Scanner;
  * Created by Morgane TROYSI on 17/01/17.
  */
 public class Alice {
-    private static Helper helper;
+    private static Helper helper = new Helper();
 
     private PublicKey publicKey;
     private PrivateKey privateKey;
@@ -32,26 +32,26 @@ public class Alice {
     }
 
     public static void main(String[] args) {
-    
+
     	//test du nombre de paramètre
 		if(args.length!=2){
-			System.out.println("Nombre d'arguments incorrect : il faut l'ip du serveur en premier paramètre et son port en second.");		
+			System.out.println("Nombre d'arguments incorrect : il faut l'ip du serveur en premier paramètre et son port en second.");
 			System.exit(-1);	//fin du programme
 		}
 
 		//variable port & ip
 		int port=Integer.parseInt(args[1]);
-		String ip=args[0];	
+		String ip=args[0];
 		System.out.println("Client lancé !");
 		System.out.println("L'ip du serveur choisi est : "+ip);
 		System.out.println("Le port du serveur choisi est : "+port);
 		System.out.println();
-	
+
 		try{
-			
+
 			//création du socket d'envoi
 			Socket connexion=new Socket(ip,port);
-			
+
 			//flux de connexion
 			PrintWriter sortie=new PrintWriter(connexion.getOutputStream());
 			BufferedReader entree=new BufferedReader(new InputStreamReader(connexion.getInputStream()));
@@ -68,7 +68,7 @@ public class Alice {
 				//envoi de la chaine
 				sortie.println(saisie);
 
-				//nettoyage				
+				//nettoyage
 				sortie.flush();
 
 				//test fin
@@ -84,7 +84,7 @@ public class Alice {
 			//fermeture du client
 			connexion.close();
 			System.out.println("Fermeture du client...");
-	
+
 		}catch(Exception E){
 			System.out.println("Erreur dans le fonctionnement du client !");
 		}
