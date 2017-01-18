@@ -30,7 +30,7 @@ public class Helper {
 
     /**
      * Génère aléatoirement un petit entier impair et premier avec le nombre  passé en paramètre
-     * @param m un entier : m = (p-1) * (q-1)
+     * @param m un entier premier
      * @return randomLong un petit entier impair et premier avec le nombre passé en paramètre
      */
     public BigInteger generatePrimeWith(BigInteger m) {
@@ -38,7 +38,7 @@ public class Helper {
         long randomLong = rnd.nextLong();
         // Deux entiers sont premiers entre eux si leur PGCD est égal à 1
         // L'entier généré doit être impair
-        while(randomLong % 2 != 0 && !m.gcd(BigInteger.valueOf(randomLong)).equals(BigInteger.ONE)) {
+        while(randomLong % 2 == 0 || !m.gcd(BigInteger.valueOf(randomLong)).equals(BigInteger.ONE)) {
             randomLong = rnd.nextLong();
         }
         return BigInteger.valueOf(randomLong);
@@ -118,7 +118,7 @@ public class Helper {
     
     /**
      * Dechiffre un texte avec une clé privée
-     * @param pk la clé privée pour déchiffrer le texte
+     * @param pvk la clé privée pour déchiffrer le texte
      * @param txt le texte a déchiffrer
      * @return le texte déchiffré
      */
