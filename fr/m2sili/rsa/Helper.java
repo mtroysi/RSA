@@ -1,6 +1,7 @@
 package fr.m2sili.rsa;
 
 import java.math.BigInteger;
+import java.util.Random;
 
 /**
  * Created by Morgane TROYSI on 17/01/17.
@@ -12,16 +13,23 @@ public class Helper {
      * @return p (ou q) un grand entier premier
      */
     public BigInteger generatePrime() {
-        return null;
+        return BigInteger.probablePrime(500, new Random());
     }
 
     /**
      * Génère aléatoirement un petit entier impair et premier avec le nombre  passé en paramètre
      * @param m un entier : m = (p-1) * (q-1)
-     * @return e un petit entier impair et premier avec le nombre passé en paramètre
+     * @return randomLong un petit entier impair et premier avec le nombre passé en paramètre
      */
     public BigInteger generatePrimeWith(BigInteger m) {
-        return null;
+        Random rnd = new Random();
+        long randomLong = rnd.nextLong();
+        // Deux entiers sont premiers entre eux si leur PGCD est égal à 1
+        // L'entier généré doit être impair
+        while(randomLong % 2 != 0 && !m.gcd(BigInteger.valueOf(randomLong)).equals(1)) {
+            randomLong = rnd.nextLong();
+        }
+        return BigInteger.valueOf(randomLong);
     }
 
     /**
