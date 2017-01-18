@@ -5,17 +5,14 @@ JC = javac
 JFLAGS = -g
 
 #cibles
-all: client.class serveur.class
+all: Bob.class Alice.class Key.class Helper.class
 
-client.class: client.java
-	javac $^ $(JFLAGS)
-	
-serveur.class: serveur.java
+%.class: fr/m2sili/rsa/%.java
 	javac $^ $(JFLAGS)
 	
 #nettoyages
 clean:
-	rm -rf *.class
+	rm -rf fr/m2sili/rsa/*.class
 	
 mrproper: clean
 
