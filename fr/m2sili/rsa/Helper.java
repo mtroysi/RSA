@@ -38,7 +38,7 @@ public class Helper {
         long randomLong = rnd.nextLong();
         // Deux entiers sont premiers entre eux si leur PGCD est égal à 1
         // L'entier généré doit être impair
-        while(randomLong % 2 != 0 && !m.gcd(BigInteger.valueOf(randomLong)).equals(1)) {
+        while(randomLong % 2 != 0 && !m.gcd(BigInteger.valueOf(randomLong)).equals(BigInteger.ONE)) {
             randomLong = rnd.nextLong();
         }
         return BigInteger.valueOf(randomLong);
@@ -82,5 +82,15 @@ public class Helper {
      */
     public PrivateKey generatePrivateKey() {
         return null;
+    }
+
+    public String encryption(String message, PublicKey key) {
+        String result = "";
+        for(int i = 0; i < message.length(); i++) {
+            int c = (int) message.charAt(i);
+            BigInteger s = BigInteger.valueOf(c).modPow(key.getE(), key.getN());
+            result += s.toString() + " ";
+        }
+        return result;
     }
 }
