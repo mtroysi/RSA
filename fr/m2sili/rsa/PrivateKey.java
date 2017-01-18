@@ -8,30 +8,28 @@ import java.math.BigInteger;
 
 public class PrivateKey {
     /**
-     * premier membre de la clé : n = p * q
+     * u = premier coefficient de bézout (important & secret)
      */
-    private BigInteger n;
-
+    private BigInteger u;
+    
     /**
-     * second membre de la clé :
-     * si clé publique alors second = e = nombre premier avec m
-     * si clé privée alors second = u coefficient e Bézout
+     * v = deuxieme coefficient de bézout (inutil)
      */
-    private BigInteger second;
+    private BigInteger v;
 
-    public BigInteger getN() {
-        return n;
+    public BigInteger getU() {
+        return u;
     }
 
-    public void setN(BigInteger n) {
-        this.n = n;
+    public void setU(BigInteger u) {
+        this.u =u;
+    }
+    
+    public BigInteger getV() {
+        return v;
     }
 
-    public BigInteger getSecond() {
-        return second;
-    }
-
-    public void setSecond(BigInteger second) {
-        this.second = second;
+    public void setV(BigInteger v) {
+        this.v = v;
     }
 }
