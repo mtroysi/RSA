@@ -93,6 +93,7 @@ public class Helper {
 			r2 = rs.subtract(q.multiply(r2)); u2 = us.subtract(q.multiply(u2)); v2 = vs.subtract(q.multiply(v2));
 		}
     
+    	pvk.setN(pbk.getN());
     	pvk.setU(u1);
     	pvk.setV(v1);
     	
@@ -108,4 +109,30 @@ public class Helper {
         }
         return result;
     }
+    
+    /**
+     * Dechiffre un texte avec une clé privée
+     * @param pk la clé privée pour déchiffrer le texte
+     * @param txt le texte a déchiffrer
+     * @return le texte déchiffré
+     */
+	public String decryption(PrivateKey pvk, String txt){
+		//variables
+		String[] tab = txt.split(" ");
+		String res = "";
+		int tmp_int;
+		String tmp_str;
+		BigInteger val_char;
+		
+		
+		//decryptage
+		for(int i=0; i<tab.length; ++i){
+			val_char = new BigInteger(tab[i]);
+			val_char = val_char.modPow(pvk.getU(), pvk.getN());
+			tmp_str = val_char + "";
+			tmp_int = Integer.parseInt(tmp_str);
+			res += (char)tmp_int;
+		}
+		return res;
+	}
 }

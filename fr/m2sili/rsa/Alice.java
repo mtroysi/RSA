@@ -43,9 +43,10 @@ public class Alice {
 	public static void main(String[] args) {
 		Alice alice = new Alice();
 		alice.setPublicKey(alice.getHelper().generatePublicKey());
+		alice.setPrivateKey(alice.getHelper().generatePrivateKey(alice.getPublicKey()));
 //		alice.getPublicKey().setE(BigInteger.valueOf(7l));
 //		alice.getPublicKey().setE(BigInteger.valueOf(5141l));
-		System.out.println(alice.getHelper().encryption("Bonjour !", alice.getPublicKey()));
+		System.out.println(alice.getHelper().decryption(alice.getPrivateKey(), alice.getHelper().encryption("Bonjour !", alice.getPublicKey())));
 
     	//test du nombre de paramètre
 		if(args.length!=2){

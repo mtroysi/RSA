@@ -13,9 +13,14 @@ public class PrivateKey {
     private BigInteger u;
     
     /**
-     * v = deuxieme coefficient de bézout (inutil)
+     * v = deuxieme coefficient de bézout (inutile)
      */
     private BigInteger v;
+    
+    /**
+     * n = vient de la clé publique
+     */
+    private BigInteger n;
 
     public BigInteger getU() {
         return u;
@@ -23,6 +28,14 @@ public class PrivateKey {
 
     public void setU(BigInteger u) {
         this.u =u;
+    }
+    
+    public BigInteger getN() {
+        return n;
+    }
+
+    public void setN(BigInteger n) {
+        this.n =n;
     }
     
     public BigInteger getV() {
