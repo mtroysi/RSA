@@ -9,9 +9,26 @@ import java.io.*;
 public class Bob {
     private static Helper helper;
 
-    private Key publicKey;
-    private Key privateKey;
+    private PublicKey publicKey;
+    private PrivateKey privateKey;
     //est-ce qu'on stocke p, q, n, m ?
+
+
+    public PublicKey getPublicKey() {
+        return publicKey;
+    }
+
+    public void setPublicKey(PublicKey publicKey) {
+        this.publicKey = publicKey;
+    }
+
+    public PrivateKey getPrivateKey() {
+        return privateKey;
+    }
+
+    public void setPrivateKey(PrivateKey privateKey) {
+        this.privateKey = privateKey;
+    }
 
     public static void main(String[] args) {
 		//test du nombre de paramètre

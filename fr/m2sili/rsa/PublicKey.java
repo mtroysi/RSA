@@ -41,11 +41,35 @@ public class PublicKey {
         this.n = n;
     }
 
-    public BigInteger getSecond() {
-        return second;
+    public BigInteger getM() {
+        return m;
     }
 
-    public void setSecond(BigInteger second) {
-        this.second = second;
+    public void setM(BigInteger m) {
+        this.m = m;
+    }
+
+    public BigInteger getE() {
+        return e;
+    }
+
+    public void setE(BigInteger e) {
+        this.e = e;
+    }
+
+    public BigInteger getP() {
+        return p;
+    }
+
+    public void setP(BigInteger p) {
+        this.p = p;
+    }
+
+    public BigInteger getQ() {
+        return q;
+    }
+
+    public void setQ(BigInteger q) {
+        this.q = q;
     }
 }

@@ -46,7 +46,7 @@ public class Helper {
      * Génère une clé publique
      * @return clé publique
      */
-    public Key generatePublicKey() {
+    public PublicKey generatePublicKey() {
         return null;
     }
 
@@ -54,7 +54,7 @@ public class Helper {
      * Génère une clé privée
      * @return clé privée
      */
-    public Key generatePrivateKey() {
+    public PrivateKey generatePrivateKey() {
         return null;
     }
 }
