@@ -44,15 +44,6 @@ public class Helper {
         return BigInteger.valueOf(randomLong);
     }
 
-    /**
-     * Génère un nombre vérifiant l'équation diophantienne e*u+m*v = PGCD(e, m) à l'aide de l'algorithme d'Euclide "étendu"
-     * @param m un entier : m = (p-1) * (q-1)
-     * @param e un entier premier avec m
-     * @return u Génère un nombre vérifiant l'équation diophantienne
-     */
-    public BigInteger caclulCoefficientBezout(BigInteger m, BigInteger e) {
-        return null;
-    }
 
     /**
      * Génère une clé publique
@@ -78,9 +69,33 @@ public class Helper {
 
     /**
      * Génère une clé privée
+     * @param pk la clé publique pour génerer la clé privée
      * @return clé privée
      */
-    public PrivateKey generatePrivateKey() {
-        return null;
+	public PrivateKey generatePrivateKey(PublicKey pbk){
+    	PrivateKey pvk = new PrivateKey();
+					
+		//Entrées
+		BigInteger a=pbk.getE(), b=pbk.getM(); 			// entiers naturels en entrée a = e et b = m 
+		
+		//Sorties
+		BigInteger r; 									// entiers relatifs tels que r = pgcd(a, b) et r = a*u+b*v 
+		
+		//Init
+		BigInteger r1=a, r2=b, u1=BigInteger.ONE, v1=BigInteger.ZERO, u2=BigInteger.ZERO, v2=BigInteger.ONE; 	
+		BigInteger q;									//quotient entier
+		BigInteger rs, us, vs;							//variables de stockages
+		
+		while(r2 != BigInteger.ZERO){
+			q = r1.divide(r2);
+			rs = r1; us = u1; vs = v1;
+			r1 = r2; u1 = u2; v1 = v2;
+			r2 = rs.subtract(q.multiply(r2)); u2 = us.subtract(q.multiply(u2)); v2 = vs.subtract(q.multiply(v2));
+		}
+    
+    	pvk.setU(u1);
+    	pvk.setV(v1);
+    	
+        return pvk;
     }
 }

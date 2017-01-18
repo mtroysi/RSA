@@ -12,8 +12,6 @@ public class Alice {
 
     private PublicKey publicKey;
     private PrivateKey privateKey;
-    //est-ce qu'on stocke p, q, n, m ?
-
 
     public PublicKey getPublicKey() {
         return publicKey;
@@ -32,7 +30,7 @@ public class Alice {
     }
 
     public static void main(String[] args) {
-
+   
     	//test du nombre de paramètre
 		if(args.length!=2){
 			System.out.println("Nombre d'arguments incorrect : il faut l'ip du serveur en premier paramètre et son port en second.");

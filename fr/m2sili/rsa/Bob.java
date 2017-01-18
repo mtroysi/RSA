@@ -11,7 +11,6 @@ public class Bob {
 
     private PublicKey publicKey;
     private PrivateKey privateKey;
-    //est-ce qu'on stocke p, q, n, m ?
 
 
     public PublicKey getPublicKey() {
