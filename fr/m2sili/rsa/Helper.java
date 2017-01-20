@@ -30,7 +30,7 @@ public class Helper {
 
     /**
      * Génère aléatoirement un petit entier impair et premier avec le nombre  passé en paramètre
-     * @param m un entier premier
+     * @param m un grand entier
      * @return randomLong un petit entier impair et premier avec le nombre passé en paramètre
      */
     public BigInteger generatePrimeWith(BigInteger m) {

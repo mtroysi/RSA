@@ -1,5 +1,6 @@
 package fr.m2sili.rsa;
 
+import java.math.BigInteger;
 import java.net.*;
 import java.io.*;
 
@@ -7,7 +8,7 @@ import java.io.*;
  * Created by Morgane TROYSI on 17/01/17.
  */
 public class Bob {
-    private static Helper helper;
+    private static Helper helper = new Helper();
 
     private PublicKey publicKey;
     private PrivateKey privateKey;
@@ -29,6 +30,14 @@ public class Bob {
         this.privateKey = privateKey;
     }
 
+	public static Helper getHelper() {
+		return helper;
+	}
+
+	public static void setHelper(Helper helper) {
+		Bob.helper = helper;
+	}
+
     public static void main(String[] args) {
 		//test du nombre de paramètre
 		if(args.length!=1){
@@ -41,6 +50,11 @@ public class Bob {
 		System.out.println("Le port choisi pour le serveur est : "+port);			
 		System.out.println("Serveur lancé !");
 		System.out.println();
+
+		Bob bob = new Bob();
+		bob.setPublicKey(bob.getHelper().generatePublicKey());
+		bob.setPrivateKey(bob.getHelper().generatePrivateKey(bob.getPublicKey()));
+		PublicKey AliceKey = new PublicKey();
 
 		try{
 
@@ -60,26 +74,37 @@ public class Bob {
 			
 			String saisie=null;
 
-			//boucle de lecture
-			while(true){	
-				//lecture de la chaine
-				saisie=entree.readLine();
-				System.out.println("Chaine reçu par le client : "+saisie);
-			
-				//test fin
-				if(saisie.equals("Over&Out"))
-					break;
-	
-				//envoi	de la chaine
-				saisie+=" - Ok";	
-				sortie.println(saisie);
-				System.out.println("Chaine renvoyée au client : "+saisie);
-				
-				//nettoyage
-				sortie.flush();
+			//Réception de la clé publique d'Alice
+			saisie=entree.readLine();
+			AliceKey.setN(new BigInteger(saisie.split(":")[0]));
+			AliceKey.setE(new BigInteger(saisie.split(":")[1]));
+			System.out.println("Bob > Clé publique reçue.");
 
-				System.out.println();
-			}
+			//Envoi de la clé clé publique à Alice
+			System.out.println("Bob > Voici ma clé publique : " + bob.getPublicKey().getN() + " " + bob.getPublicKey().getE());
+			sortie.println(bob.getPublicKey().getN() + ":" + bob.getPublicKey().getE());
+			sortie.flush();
+
+			//boucle de lecture
+//			while(true){
+//				//lecture de la chaine
+//				saisie=entree.readLine();
+//				System.out.println("Chaine reçu par le client : "+saisie);
+//
+//				//test fin
+//				if(saisie.equals("Over&Out"))
+//					break;
+//
+//				//envoi	de la chaine
+//				saisie+=" - Ok";
+//				sortie.println(saisie);
+//				System.out.println("Chaine renvoyée au client : "+saisie);
+//
+//				//nettoyage
+//				sortie.flush();
+//
+//				System.out.println();
+//			}
 	
 			//fermeture du serveur
 			connexion.close();

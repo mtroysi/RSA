@@ -44,34 +44,46 @@ public class Alice {
 		Alice alice = new Alice();
 		alice.setPublicKey(alice.getHelper().generatePublicKey());
 		alice.setPrivateKey(alice.getHelper().generatePrivateKey(alice.getPublicKey()));
-		System.out.println(alice.getHelper().decryption(alice.getPrivateKey(), alice.getHelper().encryption("Bonjour !", alice.getPublicKey())));
+        PublicKey BobKey = new PublicKey();
+//		System.out.println(alice.getHelper().decryption(alice.getPrivateKey(), alice.getHelper().encryption("Bonjour !", alice.getPublicKey())));
 
-//    	//test du nombre de paramètre
-//		if(args.length!=2){
-//			System.out.println("Nombre d'arguments incorrect : il faut l'ip du serveur en premier paramètre et son port en second.");
-//			System.exit(-1);	//fin du programme
-//		}
-//
-//		//variable port & ip
-//		int port=Integer.parseInt(args[1]);
-//		String ip=args[0];
-//		System.out.println("Client lancé !");
-//		System.out.println("L'ip du serveur choisi est : "+ip);
-//		System.out.println("Le port du serveur choisi est : "+port);
-//		System.out.println();
-//
-//		try{
-//
-//			//création du socket d'envoi
-//			Socket connexion=new Socket(ip,port);
-//
-//			//flux de connexion
-//			PrintWriter sortie=new PrintWriter(connexion.getOutputStream());
-//			BufferedReader entree=new BufferedReader(new InputStreamReader(connexion.getInputStream()));
-//
-//			String saisie=null;
-//
-//			//boucle de saisie
+    	//test du nombre de paramètre
+		if(args.length!=2){
+			System.out.println("Nombre d'arguments incorrect : il faut l'ip du serveur en premier paramètre et son port en second.");
+			System.exit(-1);	//fin du programme
+		}
+
+		//variable port & ip
+		int port=Integer.parseInt(args[1]);
+		String ip=args[0];
+		System.out.println("Client lancé !");
+		System.out.println("L'ip du serveur choisi est : "+ip);
+		System.out.println("Le port du serveur choisi est : "+port);
+		System.out.println();
+
+		try{
+
+			//création du socket d'envoi
+			Socket connexion=new Socket(ip,port);
+
+			//flux de connexion
+			PrintWriter sortie=new PrintWriter(connexion.getOutputStream());
+			BufferedReader entree=new BufferedReader(new InputStreamReader(connexion.getInputStream()));
+
+			String saisie=null;
+
+            //Envoi de la clé clé publique à Bob
+            System.out.println("Alice > Voici ma clé publique : " + alice.getPublicKey().getN() + " " + alice.getPublicKey().getE());
+            sortie.println(alice.getPublicKey().getN() + ":" + alice.getPublicKey().getE());
+            sortie.flush();
+
+            //Réception clé publique Bob
+            saisie=entree.readLine();
+            BobKey.setN(new BigInteger(saisie.split(":")[0]));
+            BobKey.setE(new BigInteger(saisie.split(":")[1]));
+            System.out.println("Alice > Clé publique reçue.");
+
+			//boucle de saisie
 //			while(true){
 //				//lecture de la chaine
 //				Scanner sc=new Scanner(System.in);
@@ -93,14 +105,15 @@ public class Alice {
 //				System.out.println("Chaine reçu par le serveur : "+saisie);
 //				System.out.println();
 //			}
-//
-//			//fermeture du client
-//			connexion.close();
-//			System.out.println("Fermeture du client...");
-//
-//		}catch(Exception E){
-//			System.out.println("Erreur dans le fonctionnement du client !");
-//		}
+
+			//fermeture du client
+			connexion.close();
+			System.out.println("Fermeture du client...");
+
+		}
+		catch(Exception E){
+			System.out.println("Erreur dans le fonctionnement du client !");
+		}
 
     }
 }
