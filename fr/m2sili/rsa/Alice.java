@@ -13,7 +13,6 @@ public class Alice {
 
     private PublicKey publicKey;
     private PrivateKey privateKey;
-    //est-ce qu'on stocke p, q, n, m ?
 
 
     public PublicKey getPublicKey() {
@@ -44,8 +43,7 @@ public class Alice {
 		Alice alice = new Alice();
 		alice.setPublicKey(alice.getHelper().generatePublicKey());
 		alice.setPrivateKey(alice.getHelper().generatePrivateKey(alice.getPublicKey()));
-        PublicKey BobKey = new PublicKey();
-//		System.out.println(alice.getHelper().decryption(alice.getPrivateKey(), alice.getHelper().encryption("Bonjour !", alice.getPublicKey())));
+        PublicKey bobKey = new PublicKey();
 
     	//test du nombre de paramètre
 		if(args.length!=2){
@@ -70,7 +68,7 @@ public class Alice {
 			PrintWriter sortie=new PrintWriter(connexion.getOutputStream());
 			BufferedReader entree=new BufferedReader(new InputStreamReader(connexion.getInputStream()));
 
-			String saisie=null;
+			String saisie = null;
 
             //Envoi de la clé clé publique à Bob
             System.out.println("Alice > Voici ma clé publique : " + alice.getPublicKey().getN() + " " + alice.getPublicKey().getE());
@@ -79,39 +77,39 @@ public class Alice {
 
             //Réception clé publique Bob
             saisie=entree.readLine();
-            BobKey.setN(new BigInteger(saisie.split(":")[0]));
-            BobKey.setE(new BigInteger(saisie.split(":")[1]));
+            bobKey.setN(new BigInteger(saisie.split(":")[0]));
+            bobKey.setE(new BigInteger(saisie.split(":")[1]));
             System.out.println("Alice > Clé publique reçue.");
 
 			//boucle de saisie
-//			while(true){
-//				//lecture de la chaine
-//				Scanner sc=new Scanner(System.in);
-//				System.out.print("Entrez une chaine à envoyer au serveur : ");
-//				saisie=sc.nextLine();
-//
-//				//envoi de la chaine
-//				sortie.println(saisie);
-//
-//				//nettoyage
-//				sortie.flush();
-//
-//				//test fin
-//				if(saisie.equals("Over&Out"))
-//					break;
-//
-//				//lecture de la reception
-//				saisie=entree.readLine();
-//				System.out.println("Chaine reçu par le serveur : "+saisie);
-//				System.out.println();
-//			}
+			while(true) {
+				//lecture de la chaine
+				Scanner sc = new Scanner(System.in);
+				System.out.print("Alice > ");
+				saisie = sc.nextLine();
+
+				//envoi de la chaine
+                System.out.println("Alice > Envoi du message chiffré en cours...");
+				sortie.println(alice.getHelper().encryption(saisie, bobKey));
+
+				//nettoyage
+				sortie.flush();
+
+				//lecture de la reception
+				saisie = entree.readLine();
+                System.out.println("Alice > Message reçu. Déchiffrement en cours...");
+				System.out.println("Alice > Message reçu : " + alice.getHelper().decryption(alice.getPrivateKey(), saisie));
+				System.out.println();
+
+                break;
+			}
 
 			//fermeture du client
 			connexion.close();
 			System.out.println("Fermeture du client...");
 
 		}
-		catch(Exception E){
+		catch(Exception E) {
 			System.out.println("Erreur dans le fonctionnement du client !");
 		}
 
