@@ -38,7 +38,7 @@ public class Helper {
         long randomLong = rnd.nextLong();
         // Deux entiers sont premiers entre eux si leur PGCD est égal à 1
         // L'entier généré doit être impair
-        while(randomLong % 2 == 0 || !m.gcd(BigInteger.valueOf(randomLong)).equals(BigInteger.ONE)) {
+        while(randomLong % 2 == 0 || !m.gcd(BigInteger.valueOf(randomLong)).equals(BigInteger.ONE) || randomLong < 0) {
             randomLong = rnd.nextLong();
         }
         return BigInteger.valueOf(randomLong);
@@ -74,28 +74,34 @@ public class Helper {
      */
 	public PrivateKey generatePrivateKey(PublicKey pbk){
     	PrivateKey pvk = new PrivateKey();
-					
+    	
 		//Entrées
 		BigInteger a=pbk.getE(), b=pbk.getM(); 			// entiers naturels en entrée a = e et b = m 
-		
+	
 		//Sorties
 		BigInteger r; 									// entiers relatifs tels que r = pgcd(a, b) et r = a*u+b*v 
-		
+	
 		//Init
 		BigInteger r1=a, r2=b, u1=BigInteger.ONE, v1=BigInteger.ZERO, u2=BigInteger.ZERO, v2=BigInteger.ONE; 	
 		BigInteger q;									//quotient entier
-		BigInteger rs, us, vs;							//variables de stockages
-		
+		BigInteger rs, us, vs;							//variables de stockages    	
+	
 		while(r2 != BigInteger.ZERO){
 			q = r1.divide(r2);
 			rs = r1; us = u1; vs = v1;
 			r1 = r2; u1 = u2; v1 = v2;
 			r2 = rs.subtract(q.multiply(r2)); u2 = us.subtract(q.multiply(u2)); v2 = vs.subtract(q.multiply(v2));
 		}
-    
-    	pvk.setN(pbk.getN());
-    	pvk.setU(u1);
-    	pvk.setV(v1);
+	
+		BigInteger k = BigInteger.valueOf(-1);
+		while(u1.compareTo(BigInteger.valueOf(2)) != 1 || u1.compareTo(b) != -1 ){
+			u1 = u1.subtract(k.multiply(b));
+			k = k.subtract(BigInteger.valueOf(-1));
+		}
+	
+		pvk.setN(pbk.getN());
+		pvk.setU(u1);
+		pvk.setV(v1);
     	
         return pvk;
     }
