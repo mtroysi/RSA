@@ -8,35 +8,6 @@ import java.io.*;
  * Created by Morgane TROYSI on 17/01/17.
  */
 public class Bob {
-    private static Helper helper = new Helper();
-
-    private PublicKey publicKey;
-    private PrivateKey privateKey;
-
-
-    public PublicKey getPublicKey() {
-        return publicKey;
-    }
-
-    public void setPublicKey(PublicKey publicKey) {
-        this.publicKey = publicKey;
-    }
-
-    public PrivateKey getPrivateKey() {
-        return privateKey;
-    }
-
-    public void setPrivateKey(PrivateKey privateKey) {
-        this.privateKey = privateKey;
-    }
-
-	public static Helper getHelper() {
-		return helper;
-	}
-
-	public static void setHelper(Helper helper) {
-		Bob.helper = helper;
-	}
 
     public static void main(String[] args) {
 		//test du nombre de paramètre
@@ -51,12 +22,13 @@ public class Bob {
 		System.out.println("Serveur lancé !");
 		System.out.println();
 
-		Bob bob = new Bob();
+		// Génération des clés
+		Client bob = new Client();
 		bob.setPublicKey(bob.getHelper().generatePublicKey());
 		bob.setPrivateKey(bob.getHelper().generatePrivateKey(bob.getPublicKey()));
 		PublicKey aliceKey = new PublicKey();
 
-		try{
+		try {
 
 			//création du server		
 			ServerSocket serveur = new ServerSocket(port);

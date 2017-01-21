@@ -9,41 +9,8 @@ import java.util.Scanner;
  * Created by Morgane TROYSI on 17/01/17.
  */
 public class Alice {
-    private static Helper helper = new Helper();
-
-    private PublicKey publicKey;
-    private PrivateKey privateKey;
-
-
-    public PublicKey getPublicKey() {
-        return publicKey;
-    }
-
-    public void setPublicKey(PublicKey publicKey) {
-        this.publicKey = publicKey;
-    }
-
-    public PrivateKey getPrivateKey() {
-        return privateKey;
-    }
-
-    public void setPrivateKey(PrivateKey privateKey) {
-        this.privateKey = privateKey;
-    }
-
-    public static Helper getHelper() {
-		return helper;
-	}
-
-	public static void setHelper(Helper helper) {
-		Alice.helper = helper;
-	}
 
 	public static void main(String[] args) {
-		Alice alice = new Alice();
-		alice.setPublicKey(alice.getHelper().generatePublicKey());
-		alice.setPrivateKey(alice.getHelper().generatePrivateKey(alice.getPublicKey()));
-        PublicKey bobKey = new PublicKey();
 
     	//test du nombre de paramètre
 		if(args.length!=2){
@@ -59,7 +26,13 @@ public class Alice {
 		System.out.println("Le port du serveur choisi est : "+port);
 		System.out.println();
 
-		try{
+		// Génération des clés
+		Client alice = new Client();
+		alice.setPublicKey(alice.getHelper().generatePublicKey());
+		alice.setPrivateKey(alice.getHelper().generatePrivateKey(alice.getPublicKey()));
+		PublicKey bobKey = new PublicKey();
+
+		try {
 
 			//création du socket d'envoi
 			Socket connexion=new Socket(ip,port);
@@ -75,7 +48,7 @@ public class Alice {
             sortie.println(alice.getPublicKey().getN() + ":" + alice.getPublicKey().getE());
             sortie.flush();
 
-            //Réception clé publique Bob
+            //Réception clé publique de Bob
             saisie=entree.readLine();
             bobKey.setN(new BigInteger(saisie.split(":")[0]));
             bobKey.setE(new BigInteger(saisie.split(":")[1]));
