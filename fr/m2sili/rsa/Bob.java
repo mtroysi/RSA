@@ -56,23 +56,30 @@ public class Bob {
 			System.out.println("Bob > Voici ma clé publique : " + bob.getPublicKey().getN() + " " + bob.getPublicKey().getE());
 			sortie.println(bob.getPublicKey().getN() + ":" + bob.getPublicKey().getE());
 			sortie.flush();
+			System.out.println();
 
 			//boucle de lecture
-			while(true) {
+			boolean quit = true; 
+			while(quit) {
 				//lecture du message chiffré
 				saisie=entree.readLine();
 				System.out.println("Bob > Message reçu. Déchiffrement en cours...");
 
 				//déchiffrement du message
 				saisie = bob.getHelper().decryption(bob.getPrivateKey(), saisie);
+				System.out.println("Alice > " +saisie);
+				
+				//cas fermeture du serveur
+				if(saisie.equals("exit") || saisie.equals("quit") || saisie.equals("end") || saisie.equals("disconnect")){
+					quit = false;
+				}
+				
 				sortie.println(bob.getHelper().encryption(saisie, aliceKey));
 				System.out.println("Bob > Message chiffré envoyé");
+				System.out.println();
 
 				//nettoyage
 				sortie.flush();
-
-				System.out.println();
-				break;
 			}
 	
 			//fermeture du serveur

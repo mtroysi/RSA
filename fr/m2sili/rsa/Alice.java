@@ -53,13 +53,24 @@ public class Alice {
             bobKey.setN(new BigInteger(saisie.split(":")[0]));
             bobKey.setE(new BigInteger(saisie.split(":")[1]));
             System.out.println("Alice > Clé publique reçue.");
+            System.out.println();
 
 			//boucle de saisie
-			while(true) {
+			boolean quit = true;
+			while(quit) {
 				//lecture de la chaine
 				Scanner sc = new Scanner(System.in);
 				System.out.print("Alice > ");
 				saisie = sc.nextLine();
+				
+				if(saisie.equals("")){
+					saisie = " ";
+				}
+				
+				//cas fermeture du serveur
+				if(saisie.equals("exit") || saisie.equals("quit") || saisie.equals("end") || saisie.equals("disconnect")){
+					quit = false;
+				}
 
 				//envoi de la chaine
                 System.out.println("Alice > Envoi du message chiffré en cours...");
@@ -73,8 +84,6 @@ public class Alice {
                 System.out.println("Alice > Message reçu. Déchiffrement en cours...");
 				System.out.println("Alice > Message reçu : " + alice.getHelper().decryption(alice.getPrivateKey(), saisie));
 				System.out.println();
-
-                break;
 			}
 
 			//fermeture du client
