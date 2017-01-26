@@ -13,7 +13,7 @@ public class Helper {
      * @return un grand entier premier
      */
     public BigInteger generatePrime() {
-        return BigInteger.probablePrime(500, new Random());
+        return BigInteger.probablePrime(1663, new Random());
     }
 
     /**
@@ -21,9 +21,9 @@ public class Helper {
      * @return un grand entier premier différent de celui passé en paramètre
      */
     public BigInteger generatePrime(BigInteger p) {
-        BigInteger q = BigInteger.probablePrime(500, new Random());
+        BigInteger q = BigInteger.probablePrime(1663, new Random());
         while (q.equals(p)) {
-            q = BigInteger.probablePrime(500, new Random());
+            q = BigInteger.probablePrime(1663, new Random());
         }
         return q;
     }
