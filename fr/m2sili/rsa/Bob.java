@@ -50,10 +50,10 @@ public class Bob {
 			saisie=entree.readLine();
 			aliceKey.setN(new BigInteger(saisie.split(":")[0]));
 			aliceKey.setE(new BigInteger(saisie.split(":")[1]));
-			System.out.println("Bob > Clé publique reçue.");
+			System.out.println("\033[1;33mBob >\033[1;37m Clé publique reçue.");
 
 			//Envoi de la clé clé publique à Alice
-			System.out.println("Bob > Voici ma clé publique : " + bob.getPublicKey().getN() + " " + bob.getPublicKey().getE());
+			System.out.println("\033[1;33mBob >\033[1;37m Voici ma clé publique : " + bob.getPublicKey().getN() + " " + bob.getPublicKey().getE());
 			sortie.println(bob.getPublicKey().getN() + ":" + bob.getPublicKey().getE());
 			sortie.flush();
 			System.out.println();
@@ -63,11 +63,11 @@ public class Bob {
 			while(quit) {
 				//lecture du message chiffré
 				saisie=entree.readLine();
-				System.out.println("Bob > Message reçu. Déchiffrement en cours...");
+				System.out.println("\033[1;33mBob >\033[1;37m Message reçu. Déchiffrement en cours...");
 
 				//déchiffrement du message
 				saisie = bob.getHelper().decryption(bob.getPrivateKey(), saisie);
-				System.out.println("Alice > " +saisie);
+				System.out.println("\033[1;36mAlice >\033[1;37m " +saisie);
 				
 				//cas fermeture du serveur
 				if(saisie.equals("exit") || saisie.equals("quit") || saisie.equals("end") || saisie.equals("disconnect")){
@@ -75,7 +75,7 @@ public class Bob {
 				}
 				
 				sortie.println(bob.getHelper().encryption(saisie, aliceKey));
-				System.out.println("Bob > Message chiffré envoyé");
+				System.out.println("\033[1;33mBob >\033[1;37m Message chiffré envoyé");
 				System.out.println();
 
 				//nettoyage

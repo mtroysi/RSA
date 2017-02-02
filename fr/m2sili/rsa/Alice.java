@@ -44,7 +44,7 @@ public class Alice {
 			String saisie = null;
 
             //Envoi de la clé clé publique à Bob
-            System.out.println("Alice > Voici ma clé publique : " + alice.getPublicKey().getN() + " " + alice.getPublicKey().getE());
+            System.out.println("\033[1;36mAlice >\033[1;37m Voici ma clé publique : " + alice.getPublicKey().getN() + " " + alice.getPublicKey().getE());
             sortie.println(alice.getPublicKey().getN() + ":" + alice.getPublicKey().getE());
             sortie.flush();
 
@@ -52,7 +52,7 @@ public class Alice {
             saisie=entree.readLine();
             bobKey.setN(new BigInteger(saisie.split(":")[0]));
             bobKey.setE(new BigInteger(saisie.split(":")[1]));
-            System.out.println("Alice > Clé publique reçue.");
+            System.out.println("\033[1;36mAlice >\033[1;37m Clé publique reçue.");
             System.out.println();
 
 			//boucle de saisie
@@ -60,7 +60,7 @@ public class Alice {
 			while(quit) {
 				//lecture de la chaine
 				Scanner sc = new Scanner(System.in);
-				System.out.print("Alice > ");
+				System.out.print("\033[1;36mAlice >\033[1;37m ");
 				saisie = sc.nextLine();
 				
 				if(saisie.equals("")){
@@ -73,7 +73,7 @@ public class Alice {
 				}
 
 				//envoi de la chaine
-                System.out.println("Alice > Envoi du message chiffré en cours...");
+                System.out.println("\033[1;36mAlice >\033[1;37m Envoi du message chiffré en cours...");
 				sortie.println(alice.getHelper().encryption(saisie, bobKey));
 
 				//nettoyage
@@ -81,8 +81,8 @@ public class Alice {
 
 				//lecture de la reception
 				saisie = entree.readLine();
-                System.out.println("Alice > Message reçu. Déchiffrement en cours...");
-				System.out.println("Alice > Message reçu : " + alice.getHelper().decryption(alice.getPrivateKey(), saisie));
+                System.out.println("\033[1;36mAlice >\033[1;37m Message reçu. Déchiffrement en cours...");
+				System.out.println("\033[1;33mBob >\033[1;37m " + alice.getHelper().decryption(alice.getPrivateKey(), saisie));
 				System.out.println();
 			}
 
