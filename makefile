@@ -8,7 +8,7 @@ JFLAGS = -g
 all: Bob.class Alice.class PrivateKey.class PublicKey.class Helper.class
 
 %.class: fr/m2sili/rsa/%.java
-	javac $^ $(JFLAGS)
+	$(JC) $^ $(JFLAGS)
 	
 #nettoyages
 clean:
