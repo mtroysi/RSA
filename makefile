@@ -5,7 +5,7 @@ JC = javac
 JFLAGS = -g
 
 #cibles
-all: Bob.class Alice.class PrivateKey.class PublicKey.class Helper.class
+all: Bob.class Alice.class PrivateKey.class PublicKey.class Helper.class Client.class
 
 %.class: fr/m2sili/rsa/%.java
 	$(JC) $^ $(JFLAGS)
