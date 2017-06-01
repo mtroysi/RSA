@@ -2,7 +2,7 @@
 
 ## Auteurs
 [<img alt="Valérian De Leeuw" src="https://avatars0.githubusercontent.com/u/17699276" width="140">](https://github.com/vdeleeuw) | [<img alt="Morgane Troysi" src="https://avatars1.githubusercontent.com/u/15076317" width="140">](https://github.com/mtroysi) |
-------------------------|---------------------------|----------------------|-----------------------------------|
+------------------------|---------------------------|
 [@vdeleeuw](https://github.com/vdeleeuw) |[@mtroysi](https://github.com/mtroysi)
 
 ## Description
